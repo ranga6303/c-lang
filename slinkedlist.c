@@ -17,6 +17,16 @@ int main ()
 {
 struct node* head=NULL;
 int value,ch=0,ele,nodecount=0;
+  create(&head,10);
+    ++nodecount;
+    create(&head,20);
+    ++nodecount;
+    create(&head,30);
+    ++nodecount;
+    create(&head,40);
+    ++nodecount;
+    create(&head,50);
+    ++nodecount;
 
 while(ch!=5)
 {
@@ -60,8 +70,7 @@ while(ch!=5)
         scanf("%d",&value);
         delele(&head,value);
         --nodecount;
-    } 
-    
+    }  
     break;
 
     case 4:
@@ -77,20 +86,21 @@ while(ch!=5)
     {
         printf("enter position and element : ");
         scanf("%d%d",&value,&ele);
-        if(value==nodecount+1)
-        {
-            create(&head,value);
-            nodecount++;
-        }
-        if(value<=nodecount&&value>0)
+        if((value<=nodecount)&&(value>0))
         {
         addele(&head,value,ele);
         nodecount++;
         }
+        if(value==nodecount+1)
+        {
+            create(&head,ele);
+            nodecount++;
+        }
         else
-        printf("%d position is not availble , there are only %d nodes\n",nodecount,value);
+        printf("%d position is not availble , there are only %d nodes\n",value,nodecount);
+        
+        
     } 
-    
     break;
 
     case 5:
@@ -112,7 +122,7 @@ void create(struct node**main,int x)
     struct node* new = (struct node*)malloc(sizeof(struct node)); 
     new->data = x;
     new->link = NULL;
-
+                                                              
     if (*main == NULL) 
     { 
         *main = new;
@@ -143,80 +153,109 @@ void display(struct node**main)
 
 
 
-void delele(struct node**main,int value )
-{
-    struct node *temp = *main, *del;
+    void delele(struct node** main, int value) {
+        struct node *temp = *main, *del = NULL;
     
-    while ((temp->link->data!=value)||(temp->link==NULL))
-        { 
-          temp = temp->link;
+        if (temp == NULL) {
+            printf("element not found to delete\n");
+            return;
         }
-    if((temp->link==NULL)&&(temp->data!=value))
-    {
-        printf("element not found to delete\n");
-    }
-    else 
-    {
-     del=temp->link;
-     temp->link=del->link;
-     del->link=NULL;
+    
+        if (temp->data == value) {
+            *main = temp->link;
+            free(temp);
+            printf("element deleted sucessfully\n");
+            return;
+        }
+    
+        while (temp != NULL && temp->data != value) {
+            del = temp;
+            temp = temp->link;
+        }
+    
+        if (temp == NULL) {
+            printf("element not found to delete\n");
+            return;
+        }
+    
+        del->link = temp->link;
+        free(temp);
+        printf("element deleted sucessfully\n");
     }
     
-}
 
 
 void delpos(struct node**main,int value )
 {
     struct node *temp = *main, *del;
     int i=1;
-    while (i!=value-1)
+
+    if (temp == NULL) {
+        printf("list is empty\n");
+            return;}
+
+    if(value==1){
+        *main=temp->link;
+        return;
+    }
+    
+    while (i<value-1)
         { 
           temp = temp->link;
-          i++;
+          ++i;
         }
-      del=temp->link;
+        del=temp->link;
       temp->link=del->link;
-     del->link=NULL;
+      free(del);
+      printf("position deeletedd sucessfully\n");
     
 }
 
 
 
-void upele(struct node**main,int value ,int ele)
-{
-  struct node *temp;
-  temp=*main;
-    while ((temp->data!=value)||(temp->link==NULL))
-        { 
-          temp = temp->link;
-        }
-    if((temp->link==NULL)&&(temp->data!=value))
-    {
-        printf("element not found to update\n");
+void upele(struct node** main, int value, int ele) {
+    struct node *temp = *main;
+
+    if (temp == NULL) {
+        printf("list is empty\n");
+            return;}
+
+    while (temp != NULL && temp->data != value) { 
+        temp = temp->link;
     }
-    else 
-    {
-     temp->data=ele;
-    }  
-}
+
+    if (temp == NULL) {
+        printf("element not found to update\n");
+        return;
+    } 
+        temp->data = ele;
+        printf("element updated sucessfull\n");
+    }
+
+
 
 
 void addele(struct node**main,int value ,int ele)
 { 
-  struct node* new=(struct node*)malloc(sizeof(struct node)); // Allocate memory
+  struct node* new=(struct node*)malloc(sizeof(struct node));
     new->data=ele;
     new->link=NULL;
 
-  struct node *temp = *main;
+  struct node *temp = *main,*med;
     int i=1;
-    while(i!=value-1)
+    if(value==1)
+    {new->link=*main;
+        *main=new;
+    }
+    else{
+    while((i<value-1)&&(temp->link!=NULL))
         { 
           temp = temp->link;
           i++;
-        }struct node* move=temp->link;
-         temp->link=new;
-        new->link =move;
-        
+        }
+new->link=temp->link;
+temp->link=new;}
+
      
 }
 

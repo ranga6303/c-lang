@@ -3,6 +3,20 @@
   "configurations": [
     {
       "type": "java",
+      "name": "ictwo",
+      "request": "launch",
+      "mainClass": "ictwo",
+      "projectName": "practice_175aaa7c"
+    },
+    {
+      "type": "java",
+      "name": "ThrowExample",
+      "request": "launch",
+      "mainClass": "ThrowExample",
+      "projectName": "practice_175aaa7c"
+    },
+    {
+      "type": "java",
       "name": "qs",
       "request": "launch",
       "mainClass": "qs",
