@@ -6,7 +6,7 @@ public class excep1 {
         int a=s.nextInt(),b=s.nextInt(),r;
         try{
             r=a/b; 
-            
+            //hi user
             
         }
         catch(ArithmeticException e){
