@@ -168,7 +168,7 @@ void display(struct node**main)
             return;
         }
     
-        while(temp!=NULL && temp->data=value){
+        while(temp!=NULL && temp->data==value){
             del=temp;
             temp=temp->link;
         }
