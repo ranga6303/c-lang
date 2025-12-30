@@ -78,8 +78,10 @@ while(ch!=5)
     scanf("%d",&ch);
     if(ch==1)
     {
-        printf("update element (already in list) with new element : ");
-        scanf("%d%d",&value,&ele);
+        printf(" enter element(already in list to update): ");
+        scanf("%d",&value);
+        printf("enter new value : ");
+        scanf("%d",&ele);
         upele(&head,value,ele);
     }
     else if(ch==2)
